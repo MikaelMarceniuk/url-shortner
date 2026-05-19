@@ -1,0 +1,21 @@
+{
+  "name": "@url-shortener/root",
+  "version": "1.0.0",
+  "description": "Multi-tenant url-shortener monorepo",
+  "author": "Mikael Marceniuk",
+  "license": "ISC",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start:dev": "pnpm --filter \"*\" start:dev",
+    "start:prd": "pnpm --filter \"*\" start:prd",
+    "build": "pnpm --filter \"*\" build"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.1.3",
+      "onFail": "download"
+    }
+  }
+}
