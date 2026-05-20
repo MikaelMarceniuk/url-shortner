@@ -1,11 +1,11 @@
 import { ownerUserSeed } from './owner-user.seed'
-import { tenantSeed } from './tenant.seed'
+import { organizationSeed } from './organization.seed'
 
 async function runSeeds() {
   console.log('🌱 Initializing seeds...')
 
   await ownerUserSeed()
-  await tenantSeed()
+  await organizationSeed()
 
   console.log('🚀 Seeding done!')
   process.exit(0)

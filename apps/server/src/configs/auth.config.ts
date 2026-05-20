@@ -3,6 +3,7 @@ import { admin, organization, openAPI } from 'better-auth/plugins'
 import { mongodbAdapter } from 'better-auth/adapters/mongodb'
 import { mongoClient } from './db/db.config'
 import { ac, user, admin as adminRole, owner } from './roles.config'
+import { t } from 'elysia'
 
 export const auth = betterAuth({
   plugins: [
@@ -16,7 +17,20 @@ export const auth = betterAuth({
       adminRoles: ['admin', 'owner'],
       defaultRole: 'user',
     }),
-    organization(),
+    organization({
+      schema: {
+        organization: {
+          additionalFields: {
+            instance_host: {
+              type: 'string',
+              required: true,
+              input: true,
+              // validator: {} // TODO Add a validator
+            },
+          },
+        },
+      },
+    }),
     openAPI(),
   ],
   database: mongodbAdapter(mongoClient.getDb()),
