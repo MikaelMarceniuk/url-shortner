@@ -1,7 +1,7 @@
 import Elysia from 'elysia'
 import { auth } from '../../configs/auth.config'
 
-export const betterAuthHandler = new Elysia({ name: 'better-auth' })
+export const betterAuthMiddleware = new Elysia({ name: 'better-auth' })
   .mount(auth.handler)
   .macro({
     auth: {

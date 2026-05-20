@@ -1,5 +1,5 @@
 import openapi from '@elysia/openapi'
-import { OpenAPI } from '../http/handlers/better-auth.handler'
+import { OpenAPI } from '../http/middleware/better-auth.middleware'
 
 export const openapiConfig = openapi({
   documentation: {

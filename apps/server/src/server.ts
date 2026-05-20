@@ -1,9 +1,10 @@
 import { Elysia } from 'elysia'
+
 import { env } from './configs/env.config'
 import { mongoClient } from './configs/db.config'
-
 import { openapiConfig } from './configs/openapi.config'
-import { betterAuthHandler } from './http/handlers/better-auth.handler'
+
+import { betterAuthMiddleware } from './http/middleware/better-auth.middleware'
 
 export class Server {
   public app!: Awaited<ReturnType<Server['createApp']>>
@@ -31,6 +32,6 @@ export class Server {
   private async createApp() {
     return new Elysia({ prefix: this.apiPrefix })
       .use(openapiConfig)
-      .use(betterAuthHandler)
+      .use(betterAuthMiddleware)
   }
 }
