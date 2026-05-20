@@ -1,5 +1,5 @@
 import { MongoClient, Db } from 'mongodb'
-import { env } from './env.config'
+import { env } from '../env.config'
 
 class AppMongoClient {
   private clientInstance!: MongoClient

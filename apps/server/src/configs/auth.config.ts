@@ -1,7 +1,7 @@
 import { betterAuth } from 'better-auth'
 import { admin, organization, openAPI } from 'better-auth/plugins'
 import { mongodbAdapter } from 'better-auth/adapters/mongodb'
-import { mongoClient } from './db.config'
+import { mongoClient } from './db/db.config'
 
 export const auth = betterAuth({
   plugins: [admin(), organization(), openAPI()],

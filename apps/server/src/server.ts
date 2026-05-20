@@ -1,7 +1,7 @@
 import { Elysia } from 'elysia'
 
 import { env } from './configs/env.config'
-import { mongoClient } from './configs/db.config'
+import { mongoClient } from './configs/db/db.config'
 import { openapiConfig } from './configs/openapi.config'
 
 import { betterAuthMiddleware } from './http/middleware/better-auth.middleware'
