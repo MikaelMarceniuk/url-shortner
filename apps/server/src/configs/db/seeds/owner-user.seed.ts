@@ -5,6 +5,7 @@ const ownerUser = {
   email: 'mikael.marceniuk@codeui.com',
   password: '12345678',
   name: 'Mikael Marceniuk',
+  role: 'owner',
 }
 
 export async function ownerUserSeed() {
