@@ -3,10 +3,18 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "bun run --watch src/index.ts"
+    "start:dev": "bun run --watch src/index.ts",
+    "db:seed": "bun run src/configs/db/seeds/index.seed.ts"
   },
   "dependencies": {
-    "elysia": "1.4.28"
+    "@better-auth/mongo-adapter": "^1.6.11",
+    "@elysia/openapi": "^1.4.15",
+    "@elysiajs/cors": "^1.4.2",
+    "better-auth": "^1.6.11",
+    "dotenv": "^17.4.2",
+    "elysia": "1.4.28",
+    "mongodb": "^7.2.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "bun-types": "latest"

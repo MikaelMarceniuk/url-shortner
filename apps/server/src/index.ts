@@ -1,7 +1,4 @@
-import { Elysia } from 'elysia'
+require('dotenv')
+import { Server } from './server'
 
-const app = new Elysia().get('/', () => 'Hello Elysia').listen(3333)
-
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,
-)
+await new Server().start()
