@@ -1,3 +1,3 @@
 export type withChildren = {
-	children: React.ReactNode,
+  children: React.ReactNode
 }
