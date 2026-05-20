@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, useEffect, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { authClient } from '@/lib/auth.lib'
 import type { SignInSchema } from '@/schemas/sign-in.schema'
@@ -24,6 +24,7 @@ const AuthContext = createContext<AuthContext | null>(null)
 
 export const AuthProviderContext: React.FC<withChildren> = ({ children }) => {
   const router = useRouter()
+  const pathname = usePathname()
   const queryClient = useQueryClient()
   const signInMutation = useSignIn()
   const signOutMutation = useSignOutMutation()
@@ -42,10 +43,10 @@ export const AuthProviderContext: React.FC<withChildren> = ({ children }) => {
   useEffect(() => {
     if (isLoading) return
 
-    if (!data?.session) {
-      router.push('/sign-in')
+    if (!data?.session && pathname !== '/sign-in') {
+      router.replace('/sign-in?s_error=session_ended')
     }
-  }, [data, isLoading, router])
+  }, [data, isLoading, pathname, router])
 
   const signIn = useCallback(
     async (data: SignInSchema) => {
