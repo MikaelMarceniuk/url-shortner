@@ -18,7 +18,7 @@ export const auth = betterAuth({
       schema: {
         organization: {
           additionalFields: {
-            domain: {
+            host: {
               type: 'string',
               required: true,
               input: true,
@@ -44,7 +44,7 @@ export const auth = betterAuth({
       if (env.NODE_ENV !== 'PRD' && hostname === 'localhost') return [origin]
 
       const org = await organizationCollection().findOne({
-        domain: hostname,
+        host: hostname,
       })
 
       return org ? [origin] : []

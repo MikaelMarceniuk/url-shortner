@@ -31,7 +31,7 @@ export interface Organization {
   name: string
   slug: string
 
-  domain: string // Domínio que cliente acessa
+  host: string // host que cliente acessa
   // link_domains: LinkDomain[] // Domínios que cliente gera links
 
   // settings: OrganizationSettings

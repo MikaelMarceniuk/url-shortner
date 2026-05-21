@@ -5,13 +5,13 @@ const organizations = [
   {
     name: 'CodeUI',
     slug: 'codeui',
-    domain: 'codeui.com',
+    host: 'shortner-dev.codeui.com',
     // logo: 'https://example.com/logo.png', // TODO Create an s3
   },
   {
     name: 'Higher Up English',
     slug: 'higher-up-english',
-    domain: 'higher-up.com.br',
+    host: 'shortner-dev.higher-up.com.br',
     // logo: 'https://example.com/logo.png', // TODO Create an s3
   },
 ] as const

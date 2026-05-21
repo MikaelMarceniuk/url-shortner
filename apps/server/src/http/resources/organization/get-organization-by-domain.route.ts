@@ -7,7 +7,7 @@ export const getOrganizationByDomain = router.get(
   '/organization/domain/:domain',
   async ({ params }): Promise<string | null> => {
     const organization = await organizationCollection().findOne({
-      domain: { $eq: params.domain },
+      host: { $eq: params.domain },
     })
 
     return organization ? organization._id.toString() : null
