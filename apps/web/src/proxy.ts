@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getOrganizationMiddleware } from './middlewares/get-organization.middleware'
 import { getSessionMiddleware } from './middlewares/get-session.middleware'
 
+// TODO Fix loop when organization not found
 export const proxy = async (req: NextRequest) => {
   const res = NextResponse.next()
 
