@@ -1,19 +1,21 @@
 import { api } from '@/lib/axios.lib'
 import { NextRequest, NextResponse } from 'next/server'
-import { getDomain } from 'tldts'
 
 export const getOrganizationMiddleware = async (
   req: NextRequest,
   res: NextResponse
 ) => {
-  const host = req.headers.get('host')
+  let host = req.headers.get('host')
   if (!host) {
     return NextResponse.json('Organization not found.', { status: 404 })
   }
 
-  const domain = getDomain(host) || 'localhost'
+  if (process.env.NODE_ENV == 'development') {
+    host = host.split(':')[0]
+  }
+
   const { data } = await api.get<string | null>(
-    `/api/organization/domain/${domain}`
+    `/api/organization/domain/${host}`
   )
 
   if (!data) {

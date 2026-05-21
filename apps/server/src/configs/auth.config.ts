@@ -4,16 +4,13 @@ import { mongodbAdapter } from 'better-auth/adapters/mongodb'
 import { mongoClient } from './db/db.config'
 import { ac, user, admin as adminRole, owner } from './roles.config'
 import { env } from './env.config'
+import { organizationCollection } from './db/collections/organization.collection'
 
 export const auth = betterAuth({
   plugins: [
     admin({
       ac,
-      roles: {
-        user,
-        admin: adminRole,
-        owner,
-      },
+      roles: { user, admin: adminRole, owner },
       adminRoles: ['admin', 'owner'],
       defaultRole: 'user',
     }),
@@ -25,7 +22,6 @@ export const auth = betterAuth({
               type: 'string',
               required: true,
               input: true,
-              // validator: {} // TODO Add a validator
             },
           },
         },
@@ -37,20 +33,24 @@ export const auth = betterAuth({
   experimental: {
     joins: true,
   },
-  trustedOrigins: [
-    'http://localhost:3333', // Seu próprio servidor
-    'http://localhost:3000', // Porta comum de Front-end (Next.js)
-    'http://shortner-dev.codeui.com:3333',
-    'http://shortner-dev.codeui.com:3000',
-  ],
-  advanced: {
-    crossSubDomainCookies: {
-      enabled: true,
-    },
-  },
-  cookie: {
-    domain: '.codeui.com',
-    secure: env.NODE_ENV === 'PRD',
+  trustedOrigins: async (request) => {
+    if (!request) return []
+
+    const origin = request.headers.get('origin')
+    if (!origin) return []
+
+    try {
+      const hostname = new URL(origin).hostname
+      if (env.NODE_ENV !== 'PRD' && hostname === 'localhost') return [origin]
+
+      const org = await organizationCollection().findOne({
+        domain: hostname,
+      })
+
+      return org ? [origin] : []
+    } catch {
+      return []
+    }
   },
   emailAndPassword: {
     enabled: true,
