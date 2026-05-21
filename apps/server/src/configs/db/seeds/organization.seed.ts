@@ -5,13 +5,13 @@ const organizations = [
   {
     name: 'CodeUI',
     slug: 'codeui',
-    instance_host: 'codeui.com.br',
+    domain: 'codeui.com',
     // logo: 'https://example.com/logo.png', // TODO Create an s3
   },
   {
     name: 'Higher Up English',
     slug: 'higher-up-english',
-    instance_host: 'higher-up.com.br',
+    domain: 'higher-up.com.br',
     // logo: 'https://example.com/logo.png', // TODO Create an s3
   },
 ] as const
@@ -30,7 +30,7 @@ export async function organizationSeed() {
 
   for (const org of organizations) {
     try {
-      const { id } = await auth.api.createOrganization({
+      await auth.api.createOrganization({
         body: { ...org, userId: ownerUser._id.toString() },
       })
 

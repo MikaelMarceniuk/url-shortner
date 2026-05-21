@@ -3,7 +3,7 @@ import { admin, organization, openAPI } from 'better-auth/plugins'
 import { mongodbAdapter } from 'better-auth/adapters/mongodb'
 import { mongoClient } from './db/db.config'
 import { ac, user, admin as adminRole, owner } from './roles.config'
-import { t } from 'elysia'
+import { env } from './env.config'
 
 export const auth = betterAuth({
   plugins: [
@@ -21,7 +21,7 @@ export const auth = betterAuth({
       schema: {
         organization: {
           additionalFields: {
-            instance_host: {
+            domain: {
               type: 'string',
               required: true,
               input: true,
@@ -40,7 +40,18 @@ export const auth = betterAuth({
   trustedOrigins: [
     'http://localhost:3333', // Seu próprio servidor
     'http://localhost:3000', // Porta comum de Front-end (Next.js)
+    'http://shortner-dev.codeui.com:3333',
+    'http://shortner-dev.codeui.com:3000',
   ],
+  advanced: {
+    crossSubDomainCookies: {
+      enabled: true,
+    },
+  },
+  cookie: {
+    domain: '.codeui.com',
+    secure: env.NODE_ENV === 'PRD',
+  },
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,

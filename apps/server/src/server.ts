@@ -6,6 +6,7 @@ import { openapiConfig } from './configs/openapi.config'
 import { corsConfig } from './configs/cors.config'
 
 import { betterAuthMiddleware } from './http/middleware/better-auth.middleware'
+import { getOrganizationByDomain } from './http/resources/organization/get-organization-by-domain.route'
 
 export class Server {
   public app!: Awaited<ReturnType<Server['createApp']>>
@@ -16,6 +17,7 @@ export class Server {
   async initialize() {
     await mongoClient.testConnection()
     this.app = await this.createApp()
+    this.loadRoutes()
   }
 
   listen() {
@@ -35,5 +37,9 @@ export class Server {
       .use(openapiConfig)
       .use(betterAuthMiddleware)
       .use(corsConfig)
+  }
+
+  private loadRoutes() {
+    this.app.use(getOrganizationByDomain)
   }
 }
